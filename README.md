@@ -1,5 +1,5 @@
 ## 功能介绍 
-![image](https://github.com/dearancelan/MiniRun/assets/89879893/9fca151d-259d-4f2c-aa93-a033585d3090)
+![小程序码](docs/miniprogram-qrcode.png)
 
   校园跑腿小程序: 在帮助学生和教职员工解决日常生活中的琐事，提供便利、快捷的服务.解决学生和教职员工日常生活中的燃眉之急，促进了校园内的互助和共享文化，提升了校园生活的便利性和舒适度。 
 
@@ -23,7 +23,7 @@
 - 如有疑问，欢迎骚扰联系我：开发交流，技术分享，问题答疑，功能建议收集，版本更新通知，安装部署协助，小程序开发定制等。
 - 俺的微信: 
  
-![image](https://github.com/dearancelan/MiniRun/assets/89879893/da4fc94d-18dc-477d-9292-85032af8167b)
+![作者微信](docs/wechat-qrcode.png)
 
 
 
