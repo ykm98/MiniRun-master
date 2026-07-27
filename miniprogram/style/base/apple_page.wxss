@@ -1,0 +1,245 @@
+/**
+ * 苹果毛玻璃 - 全局页面主题
+ * 覆盖所有二级、三级页面
+ */
+
+page {
+	background: linear-gradient(165deg, #DCE6F0 0%, #EEF2F7 35%, #E4EAF2 70%, #D8E2EC 100%) !important;
+	background-attachment: fixed;
+}
+
+/* ========== 通用白底 → 毛玻璃 ========== */
+.main,
+.main-admin,
+.admin-comm-list,
+.box-list,
+.box-list-scroll {
+	background: transparent;
+}
+
+.bg-white,
+.main-admin .comm-list,
+.main-admin .bar {
+	background: rgba(255, 255, 255, 0.72) !important;
+	backdrop-filter: blur(40rpx) saturate(180%);
+	-webkit-backdrop-filter: blur(40rpx) saturate(180%);
+}
+
+/* 列表卡片 */
+.admin-comm-list .item,
+.comm-list .item,
+.comm-list.menu .item,
+.info-list-box .item,
+.meet-list-box .item,
+.text-pic-list-box .item:not(.glass-skip) {
+	background: rgba(255, 255, 255, 0.72) !important;
+	backdrop-filter: blur(40rpx) saturate(180%);
+	-webkit-backdrop-filter: blur(40rpx) saturate(180%);
+	border: 1rpx solid rgba(255, 255, 255, 0.85) !important;
+	border-radius: 28rpx !important;
+	box-shadow: 0 8rpx 40rpx rgba(0, 0, 0, 0.06), inset 0 1rpx 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+/* 表单 */
+.form-group {
+	border-bottom-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+.form-group .title {
+	color: #1D1D1F;
+	font-weight: 500;
+}
+
+.modal-form .form-group input {
+	background: rgba(118, 118, 128, 0.08) !important;
+	border-radius: 16rpx !important;
+}
+
+/* 按钮 */
+.btn-base,
+.btn-project,
+.btn-main,
+button.btn {
+	border-radius: 999rpx !important;
+	font-weight: 600;
+}
+
+.btn.shadow,
+.btn-line-blue,
+.btn-line-green {
+	border-radius: 999rpx !important;
+}
+
+/* 搜索栏 */
+.bar .search-form,
+.search-form.round {
+	background: rgba(118, 118, 128, 0.12) !important;
+	border: none !important;
+	border-radius: 20rpx !important;
+}
+
+.bar.fixed,
+.top_bar {
+	background: rgba(255, 255, 255, 0.72) !important;
+	backdrop-filter: blur(40rpx) saturate(180%);
+	-webkit-backdrop-filter: blur(40rpx) saturate(180%);
+}
+
+/* Tab */
+.tabs .cur,
+.tabs .tab-menu.cur {
+	color: #007AFF !important;
+	font-weight: 600;
+}
+
+.tabs .tab-menu.cur:after {
+	background-color: #007AFF !important;
+	border-radius: 999rpx !important;
+	width: 32rpx !important;
+	height: 6rpx !important;
+}
+
+/* 详情页底部栏 */
+.cmpt-biz-detail-mode2,
+.cmpt-biz-detail-mode1 {
+	background: rgba(255, 255, 255, 0.85) !important;
+	backdrop-filter: blur(50rpx) saturate(200%);
+	-webkit-backdrop-filter: blur(50rpx) saturate(200%);
+	border-top: 1rpx solid rgba(0, 0, 0, 0.06) !important;
+	box-shadow: 0 -4rpx 24rpx rgba(0, 0, 0, 0.06) !important;
+}
+
+.cmpt-biz-detail-mode1 {
+	background: rgba(242, 242, 247, 0.9) !important;
+}
+
+/* 后台管理 */
+.main-admin .admin-info {
+	background: linear-gradient(135deg, #007AFF 0%, #5AC8FA 100%) !important;
+	border-radius: 0 0 32rpx 32rpx;
+}
+
+.admin-comm-list .item {
+	border-radius: 28rpx !important;
+}
+
+.form-box .title-desc {
+	border-bottom-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* 加载 / 空状态 */
+.load {
+	color: #86868B !important;
+}
+
+/* 标签 */
+.tag {
+	border-radius: 999rpx;
+}
+
+/* 表格 */
+.table {
+	border-radius: 20rpx;
+	overflow: hidden;
+}
+
+/* 安全区底部按钮容器 */
+.safe-bottom {
+	padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ========== 补充覆盖：表单 / 列表 / 组件 ========== */
+
+.modal-form .form-group input,
+.form-group input[type="text"],
+.form-group input[type="number"] {
+	background: rgba(118, 118, 128, 0.08) !important;
+	border-radius: 16rpx !important;
+}
+
+.bar .search-form {
+	background: rgba(118, 118, 128, 0.12) !important;
+	border-radius: 20rpx !important;
+}
+
+.btn-top {
+	background: rgba(255, 255, 255, 0.72) !important;
+	backdrop-filter: blur(40rpx) saturate(180%);
+	-webkit-backdrop-filter: blur(40rpx) saturate(180%);
+	border: 1rpx solid rgba(255, 255, 255, 0.85) !important;
+}
+
+.tab-bar-home .tab-bar-home-text {
+	background: rgba(255, 255, 255, 0.85) !important;
+	backdrop-filter: blur(40rpx) saturate(180%);
+	-webkit-backdrop-filter: blur(40rpx) saturate(180%);
+	box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+}
+
+.comm-list-box .item.item-bigtext,
+.comm-list-box .item.item-upimg {
+	background: rgba(255, 255, 255, 0.72) !important;
+	backdrop-filter: blur(40rpx) saturate(180%);
+	-webkit-backdrop-filter: blur(40rpx) saturate(180%);
+	border: 1rpx solid rgba(255, 255, 255, 0.85) !important;
+	border-radius: 28rpx !important;
+}
+
+.article-box .article .hint,
+.article-box .article .address {
+	background: rgba(118, 118, 128, 0.08) !important;
+	color: #86868B !important;
+}
+
+.dialog-list.menu > .dialog-list-item.grayscale {
+	background: rgba(118, 118, 128, 0.08) !important;
+}
+
+.dialog-list.menu > .dialog-list-item.cur {
+	background: rgba(0, 122, 255, 0.08) !important;
+}
+
+.cmpt-modal .modal-content,
+.cmpt-modal .modal-dialog {
+	background: rgba(255, 255, 255, 0.85) !important;
+	backdrop-filter: blur(60rpx) saturate(200%);
+	-webkit-backdrop-filter: blur(60rpx) saturate(200%);
+	border-radius: 28rpx !important;
+}
+
+.cmpt-form-set .form-set-box,
+.cmpt-editor .editor-box,
+.cmpt-radio .radio-box {
+	background: rgba(255, 255, 255, 0.72) !important;
+	backdrop-filter: blur(40rpx) saturate(180%);
+	-webkit-backdrop-filter: blur(40rpx) saturate(180%);
+}
+
+.cmpt-table .table-header,
+.cmpt-table .table-row,
+.table .thead,
+.table .tbody .tr {
+	background: rgba(255, 255, 255, 0.72) !important;
+}
+
+.cmpt-calendar .calendar-box,
+.cmpt-calendar .calendar-header {
+	background: rgba(255, 255, 255, 0.72) !important;
+	backdrop-filter: blur(40rpx) saturate(180%);
+	-webkit-backdrop-filter: blur(40rpx) saturate(180%);
+}
+
+.form-show-content .content-box,
+.form-show .form-show-item {
+	background: rgba(118, 118, 128, 0.06) !important;
+	border-radius: 16rpx !important;
+}
+
+.bottom-oprt,
+.fixed-bottom,
+.footer-bar {
+	background: rgba(255, 255, 255, 0.85) !important;
+	backdrop-filter: blur(50rpx) saturate(200%);
+	-webkit-backdrop-filter: blur(50rpx) saturate(200%);
+	border-top: 1rpx solid rgba(0, 0, 0, 0.06) !important;
+}

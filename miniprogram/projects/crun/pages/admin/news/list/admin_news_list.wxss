@@ -1,0 +1,8 @@
+@import '../../../../../../style/public/admin.wxss';
+@import '../../../../../../style/project/admin_list_style.wxss';
+
+page {
+	background: transparent;
+}
+
+ 

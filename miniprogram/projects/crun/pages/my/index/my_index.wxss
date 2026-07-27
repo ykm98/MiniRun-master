@@ -1,0 +1,196 @@
+@import "../../../style/skin.wxss";
+
+.main {
+	padding: 0;
+}
+
+.main .upside {
+	background: linear-gradient(135deg, rgba(0, 122, 255, 0.25) 0%, rgba(90, 200, 250, 0.15) 50%, rgba(255, 255, 255, 0.1) 100%);
+	height: 450rpx;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	overflow: hidden;
+	padding-top: 30rpx;
+	border-bottom-left-radius: 40rpx;
+	border-bottom-right-radius: 40rpx;
+}
+
+.main .upside .upImg {
+	height: inherit;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0.3;
+}
+
+.main .upside .user-bar {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	z-index: 9999;
+	padding: 0 50rpx;
+}
+
+.main .upside .user-bar .avatar {
+	height: 120rpx;
+	width: 120rpx;
+	border: 0rpx;
+	font-size: 80rpx;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.55);
+	backdrop-filter: blur(30rpx);
+	-webkit-backdrop-filter: blur(30rpx);
+	border: 1rpx solid rgba(255, 255, 255, 0.8);
+	box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.08);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.main .upside .user-bar .avatar image {
+	height: 70rpx;
+	width: 70rpx;
+}
+
+.main .upside .user-bar .detail {
+	width: 400rpx;
+	margin-left: 0rpx;
+	margin-right: 40rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	color: #1D1D1F;
+	box-sizing: border-box;
+}
+
+.main .upside .user-bar .detail .name {
+	width: 100%;
+	font-size: 36rpx;
+	font-weight: 600;
+	color: #1D1D1F;
+}
+
+.main .upside .user-bar .detail .desc {
+	width: 100%;
+	font-size: 26rpx;
+	margin-top: 15rpx;
+	color: #86868B;
+}
+
+.main .down {
+	box-sizing: border-box;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 20rpx 20rpx !important;
+	margin-top: -110rpx;
+	position: relative;
+}
+
+.main .down .data {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 150rpx;
+	padding: 0rpx 40rpx 0rpx 40rpx;
+	width: 100%;
+	background: rgba(255, 255, 255, 0.68);
+	backdrop-filter: blur(40rpx) saturate(180%);
+	-webkit-backdrop-filter: blur(40rpx) saturate(180%);
+	border: 1rpx solid rgba(255, 255, 255, 0.75);
+	border-radius: 28rpx;
+	box-shadow: 0 8rpx 40rpx rgba(0, 0, 0, 0.06);
+}
+
+.main .down .data view {
+	width: 150rpx;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.main .down .data view .num {
+	font-size: 32rpx;
+	font-weight: 600;
+	color: #1D1D1F;
+}
+
+.main .down .data view .txt {
+	font-size: 24rpx;
+	color: #86868B;
+}
+
+.main .comm-list .item.arrow::before,
+.main .comm-list .item .content .item-icon {
+	color: #007AFF;
+}
+
+.record {
+	background: rgba(255, 255, 255, 0.68);
+	backdrop-filter: blur(40rpx) saturate(180%);
+	-webkit-backdrop-filter: blur(40rpx) saturate(180%);
+	border: 1rpx solid rgba(255, 255, 255, 0.75);
+	border-radius: 28rpx;
+	box-shadow: 0 8rpx 40rpx rgba(0, 0, 0, 0.06);
+	min-height: 200rpx;
+	margin-bottom: 20rpx;
+	padding: 30rpx 30rpx 40rpx;
+	display: flex;
+	flex-direction: column;
+}
+
+.record .title {
+	font-size: 30rpx;
+	font-weight: 600;
+	color: #1D1D1F;
+}
+
+.record .list {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 40rpx;
+}
+
+.record .list .item {
+	width: 25%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+}
+
+.record .list .item .line1 {
+	font-size: 50rpx;
+	color: #007AFF;
+}
+
+.record .list .item .line2 {
+	font-size: 24rpx;
+	margin-top: 10rpx;
+	color: #86868B;
+}
+
+.main .site-footer {
+	width: 100%;
+	align-self: flex-end;
+}
+
+.main .upside-shadow {
+	box-shadow: unset;
+}
+
+.down .comm-list.menu.card-project {
+	border-radius: 28rpx !important;
+}

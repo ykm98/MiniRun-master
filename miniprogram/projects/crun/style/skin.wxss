@@ -1,0 +1,170 @@
+@import "../../../cmpts/public/calendar/calendar_comm/din.wxss";
+@import "../../../style/base/glass.wxss";
+
+page {
+	background: linear-gradient(165deg, #DCE6F0 0%, #EEF2F7 35%, #E4EAF2 70%, #D8E2EC 100%);
+	background-attachment: fixed;
+
+	--projectColor: #007AFF;
+	--projectColorLight: rgba(0, 122, 255, 0.14);
+	--projectCompareColor: #FFFFFF;
+	--projectTextColor: #1D1D1F;
+	--projectSubColor: #86868B;
+	--glassBg: rgba(255, 255, 255, 0.68);
+	--glassBorder: rgba(255, 255, 255, 0.75);
+
+	/*#### 父组件日历颜色定义*/
+	--calendarPageColor: rgba(255, 255, 255, 0.85);
+	--calendarMainColor: #007AFF !important;
+	--calendarLightColor: rgba(0, 122, 255, 0.2);
+}
+
+.bg-admin {
+	background-color: #007AFF;
+}
+
+.text-project {
+	color: var(--projectColor) !important;
+}
+
+.bg-project {
+	background-color: var(--projectColor) !important;
+	color: var(--projectCompareColor) !important;
+}
+
+.bg-project.light {
+	color: var(--projectColor) !important;
+	background-color: var(--projectColorLight) !important;
+}
+
+.border-project {
+	border-color: rgba(0, 122, 255, 0.35) !important;
+}
+
+.menu-project {
+	color: var(--projectTextColor) !important;
+}
+
+.tabs .tab {
+	font-size: 28rpx !important;
+	color: var(--projectSubColor) !important;
+}
+
+.tabs .cur {
+	color: var(--projectColor) !important;
+	font-weight: 600;
+}
+
+.tabs .tab-menu.cur:after {
+	background-color: var(--projectColor) !important;
+}
+
+.load-project {
+	color: var(--projectSubColor) !important;
+}
+
+.padding-project {
+	padding-left: 25rpx !important;
+	padding-right: 25rpx !important;
+}
+
+.btn-project {
+	line-height: 88rpx;
+	height: 88rpx;
+	color: var(--projectCompareColor);
+	background: linear-gradient(180deg, #3395FF 0%, #007AFF 100%);
+	border-radius: 44rpx;
+	box-shadow: 0 8rpx 24rpx rgba(0, 122, 255, 0.35);
+	font-weight: 600;
+}
+
+.phone-button {
+	color: var(--projectColor) !important;
+}
+
+.shadow-project {
+	box-shadow: 0 8rpx 40rpx rgba(0, 0, 0, 0.06), inset 0 1rpx 0 rgba(255, 255, 255, 0.8);
+}
+
+.card-project,
+.main .list .item.card-project,
+.down .comm-list.menu.card-project,
+.article-box .article.card-project,
+.text-pic-list-box .item.card-project,
+.info-list-box .item.card-project,
+.main-content .content.card-project,
+.meet-list-box .item.card-project,
+.form-box.card-project,
+.bar .search-form {
+	border-radius: 28rpx !important;
+}
+
+.up-project {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.up-project image {
+	padding: 0;
+	width: 100%;
+	margin: 0;
+}
+
+.my-icon-project {
+	color: var(--projectColor);
+	font-size: 34rpx;
+}
+
+.meet-list-box {
+	padding: 20rpx 30rpx 30rpx 30rpx;
+}
+
+.title-project {
+	color: var(--projectTextColor) !important;
+}
+
+.bar .search-form {
+	background: rgba(255, 255, 255, 0.55) !important;
+	backdrop-filter: blur(30rpx);
+	-webkit-backdrop-filter: blur(30rpx);
+	border: 1rpx solid rgba(255, 255, 255, 0.7);
+}
+
+.tabs .tab-menu.cur:after {
+	border-radius: unset !important;
+	background-color: unset !important;
+	transform: unset !important;
+	border-top-left-radius: unset !important;
+	border-top-right-radius: unset !important;
+	border-bottom-right-radius: unset !important;
+	border-bottom-left-radius: unset !important;
+
+	content: '' !important;
+	width: 30rpx !important;
+	height: 30rpx !important;
+	position: absolute !important;
+	left: calc(50% - 15rpx) !important;
+	bottom: 0rpx !important;
+	border-top: 6rpx solid var(--projectColor) !important;
+	border-right: 6rpx solid var(--projectColor) !important;
+	border-top-right-radius: 100% !important;
+	transform: rotate(-225deg) !important;
+	border-top-width: 6rpx !important;
+	border-top-style: solid !important;
+	border-top-color: var(--projectColor) !important;
+	border-right-width: 6rpx !important;
+	border-right-style: solid !important;
+	border-right-color: var(--projectColor) !important;
+}
+
+.cmpt-biz-detail-mode2 .share,
+.cmpt-biz-detail-mode2 .fav {
+	color: var(--projectColor) !important;
+}
+
+.list .item .line-title .left {
+	font-size: 36rpx;
+	font-family: 'din';
+	font-weight: normal !important;
+}

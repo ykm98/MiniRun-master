@@ -1,0 +1,152 @@
+@import "../../../style/skin.wxss";
+
+page {
+	background: linear-gradient(165deg, #DCE6F0 0%, #EEF2F7 35%, #E4EAF2 70%, #D8E2EC 100%);
+}
+
+.main {
+	width: 100%;
+	padding: 10rpx 35rpx;
+}
+
+.top {
+	width: 100%;
+	border-radius: 28rpx;
+	overflow: hidden;
+	box-shadow: 0 12rpx 48rpx rgba(0, 0, 0, 0.1);
+}
+
+.top image {
+	width: 100%;
+}
+
+.line-cur {
+	background: rgba(255, 255, 255, 0.55);
+	backdrop-filter: blur(30rpx);
+	-webkit-backdrop-filter: blur(30rpx);
+	border: 1rpx solid rgba(255, 255, 255, 0.7);
+	font-size: 24rpx;
+	color: var(--projectColor);
+	width: 100%;
+	border-radius: 28rpx;
+	padding: 16rpx 30rpx;
+	margin-bottom: 10rpx;
+}
+
+.list {
+	position: relative;
+	margin-top: 20rpx;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0rpx;
+	border-radius: 14rpx;
+}
+
+.list .item {
+	width: calc((100% - 20rpx) / 2);
+	border-radius: 28rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24rpx 20rpx;
+	margin-bottom: 20rpx;
+	background: rgba(255, 255, 255, 0.68);
+	backdrop-filter: blur(40rpx) saturate(180%);
+	-webkit-backdrop-filter: blur(40rpx) saturate(180%);
+	border: 1rpx solid rgba(255, 255, 255, 0.75);
+	box-shadow: 0 8rpx 40rpx rgba(0, 0, 0, 0.06), inset 0 1rpx 0 rgba(255, 255, 255, 0.8);
+}
+
+.list .item:nth-child(2n+1) {
+	margin-right: 20rpx;
+}
+
+.list .item .left {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.list .item .left .line1 {
+	font-size: 28rpx;
+	font-weight: 600;
+	color: #1D1D1F;
+}
+
+.list .item .left .line2 {
+	font-size: 22rpx;
+	color: #86868B;
+	margin-top: 20rpx;
+}
+
+.list .item .right {
+	width: 56rpx;
+	height: 56rpx;
+}
+
+/* 弹幕 */
+.dm {
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	height: 250rpx;
+	margin-top: -140rpx;
+}
+
+.dm .group {
+	position: absolute;
+	top: 140rpx;
+	left: 100%;
+	z-index: 10;
+	animation-timing-function: linear;
+	animation-fill-mode: none;
+	transform: translateZ(0);
+	white-space: nowrap;
+	height: 60rpx;
+}
+
+.dm .group .item {
+	display: inline-flex;
+	margin-right: 60rpx;
+	white-space: nowrap;
+}
+
+.dm .group .item .line {
+	display: inline-flex;
+	vertical-align: middle;
+	align-items: center;
+	position: relative;
+	padding: 2rpx 15rpx 2rpx 15rpx;
+	box-sizing: border-box;
+	background: rgba(255, 255, 255, 0.35);
+	backdrop-filter: blur(20rpx);
+	-webkit-backdrop-filter: blur(20rpx);
+	border: 1rpx solid rgba(255, 255, 255, 0.5);
+	border-radius: 25rpx;
+	overflow: hidden;
+	font-size: 24rpx;
+	color: #1D1D1F;
+}
+
+.dm .group .item .line .content {
+	display: inline-block;
+	max-width: 500rpx;
+	height: 50rpx;
+	line-height: 50rpx;
+	margin-right: 10rpx;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+@keyframes dmAnimation {
+	from {
+		left: 100%;
+	}
+
+	to {
+		left: -100%;
+	}
+}
