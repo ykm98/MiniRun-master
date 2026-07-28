@@ -33,7 +33,34 @@
 
 ## 安装
 
-- 安装手册见源码包里的word文档 
+- 安装手册见源码包里的 word 文档
+
+### 微信开发者工具导入（重要）
+
+本项目的 `app.json` **不在仓库最外层**，而在 `miniprogram/app.json`。根目录的 `project.config.json` 已配置：
+
+```json
+"miniprogramRoot": "miniprogram/"
+```
+
+**正确打开方式：**
+
+1. 打开微信开发者工具 →「导入项目」
+2. 目录请选择**含有 `project.config.json` 的那一层**，目录结构应类似：
+
+```text
+MiniRun-master-main/          ← 选这一层作为项目目录
+  ├── project.config.json     ← 必须能在这一层看到
+  ├── miniprogram/
+  │   └── app.json            ← 真正的小程序配置
+  ├── cloudfunctions/
+  └── docs/
+```
+
+3. 若从 GitHub 下载 ZIP 解压后出现两层同名文件夹（例如外层 `MiniRun-master-main` 里又套一层 `MiniRun-master-main`），请进入**内层**再导入，不要选最外层空壳目录。
+
+**常见报错：** `app.json: 在项目根目录未找到 app.json`  
+原因几乎都是导入目录选错（选到了外层 ZIP 目录，或选到了 `miniprogram` 的上一层之外的父目录），导致开发者工具读不到 `project.config.json` 里的 `miniprogramRoot`。重新按上面路径导入即可。
 
 
 
