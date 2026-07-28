@@ -118,6 +118,19 @@ Page({
 			});
 		}
 		pageHelper.showConfirm('您确认退出?', callback);
-	}, 
+	},
+
+	bindSeedDemoTap: function () {
+		let cb = async () => {
+			try {
+				await cloudHelper.callCloudSumbit('admin/seed_demo', { force: true });
+				pageHelper.showSuccToast('演示数据已导入');
+				await this._loadDetail();
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		pageHelper.showConfirm('将导入演示用户、公告和任务数据，是否继续？', cb);
+	},
 
 })

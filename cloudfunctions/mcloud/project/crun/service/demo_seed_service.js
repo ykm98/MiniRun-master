@@ -15,6 +15,8 @@ const ThingModel = require('../model/thing_model.js');
 const FollowModel = require('../model/follow_model.js');
 
 const DEMO_MARKER = 'setup_crun_demo';
+const SEED_KEY = 'DEMO_SEED_VERSION';
+const SEED_VERSION = 2;
 const CONST_PIC = '/images/cover.gif';
 
 const DEMO_USERS = [
@@ -74,6 +76,8 @@ const DEMO_USERS = [
 		],
 	},
 ];
+
+const DEMO_OPENIDS = DEMO_USERS.map((u) => u.openid).join(',');
 
 function buildForms(defs) {
 	return defs.map((item) => ({
@@ -166,6 +170,9 @@ async function seedNews() {
 	];
 
 	for (let news of newsList) {
+		let exists = await NewsModel.count({ NEWS_TITLE: news.NEWS_TITLE });
+		if (exists > 0) continue;
+
 		await NewsModel.insert({
 			NEWS_TITLE: news.NEWS_TITLE,
 			NEWS_DESC: news.NEWS_DESC,
@@ -192,6 +199,8 @@ async function seedSetupContent() {
 }
 
 async function seedMailTasks() {
+	if (await MailModel.count({ MAIL_USER_ID: ['in', DEMO_OPENIDS] }) >= 4) return;
+
 	const u = (i) => DEMO_USERS[i];
 
 	let tasks = [
@@ -301,6 +310,8 @@ async function seedMailTasks() {
 }
 
 async function seedFoodTasks() {
+	if (await FoodModel.count({ FOOD_USER_ID: ['in', DEMO_OPENIDS] }) >= 3) return;
+
 	const u = (i) => DEMO_USERS[i];
 
 	let tasks = [
@@ -381,6 +392,8 @@ async function seedFoodTasks() {
 }
 
 async function seedThingTasks() {
+	if (await ThingModel.count({ THING_USER_ID: ['in', DEMO_OPENIDS] }) >= 3) return;
+
 	const u = (i) => DEMO_USERS[i];
 
 	let tasks = [
@@ -458,6 +471,8 @@ async function seedThingTasks() {
 }
 
 async function seedFollowTasks() {
+	if (await FollowModel.count({ FOLLOW_USER_ID: ['in', DEMO_OPENIDS] }) >= 3) return;
+
 	const u = (i) => DEMO_USERS[i];
 
 	let tasks = [
@@ -534,30 +549,107 @@ async function seedFollowTasks() {
 	}
 }
 
-async function seedDemoData() {
+async function ensureCollections() {
 	let F = (c) => 'bx_' + c;
+	const COLLECTIONS = ['setup', 'news', 'mail', 'follow', 'thing', 'food', 'fav', 'user'];
+	for (let name of COLLECTIONS) {
+		if (!await dbUtil.isExistCollection(F(name))) {
+			await dbUtil.createCollection(F(name));
+		}
+	}
+}
 
-	if (await dbUtil.isExistCollection(F(DEMO_MARKER))) {
-		return;
+async function isSeedComplete() {
+	let version = await setupUtil.get(SEED_KEY);
+	if (version !== SEED_VERSION) return false;
+
+	let mailCnt = await MailModel.count({ MAIL_USER_ID: ['in', DEMO_OPENIDS] });
+	let foodCnt = await FoodModel.count({ FOOD_USER_ID: ['in', DEMO_OPENIDS] });
+	let thingCnt = await ThingModel.count({ THING_USER_ID: ['in', DEMO_OPENIDS] });
+	let followCnt = await FollowModel.count({ FOLLOW_USER_ID: ['in', DEMO_OPENIDS] });
+
+	return mailCnt >= 4 && foodCnt >= 3 && thingCnt >= 3 && followCnt >= 3;
+}
+
+async function clearDemoData() {
+	for (let user of DEMO_USERS) {
+		await MailModel.del({ MAIL_USER_ID: user.openid });
+		await FoodModel.del({ FOOD_USER_ID: user.openid });
+		await ThingModel.del({ THING_USER_ID: user.openid });
+		await FollowModel.del({ FOLLOW_USER_ID: user.openid });
+		await UserModel.del({ USER_MINI_OPENID: user.openid });
 	}
 
-	console.log('### seedDemoData...');
-
-	await seedUsers();
-	await seedNews();
-	await seedSetupContent();
-	await seedMailTasks();
-	await seedFoodTasks();
-	await seedThingTasks();
-	await seedFollowTasks();
-
-	if (!await dbUtil.isExistCollection(F(DEMO_MARKER))) {
-		await dbUtil.createCollection(F(DEMO_MARKER));
+	await removePlaceholderNews();
+	const demoNewsTitles = [
+		'2025年秋季学期开学通知',
+		'校园跑腿服务使用指南',
+		'图书馆期末复习座位预约通知',
+		'校园快递驿站营业时间调整',
+	];
+	for (let title of demoNewsTitles) {
+		let list = await NewsModel.getAll({ NEWS_TITLE: title }, '_id');
+		for (let item of list) {
+			await NewsModel.del(item._id);
+		}
 	}
 
-	console.log('### seedDemoData done.');
+	await setupUtil.remove(SEED_KEY);
+}
+
+async function markSeedDone() {
+	await setupUtil.set(SEED_KEY, SEED_VERSION, 'int');
+}
+
+async function seedDemoData(options = {}) {
+	const { force = false } = options;
+
+	if (!force && await isSeedComplete()) {
+		return { seeded: false, reason: 'already_complete' };
+	}
+
+	console.log('### seedDemoData start, force=' + force);
+
+	try {
+		await ensureCollections();
+
+		if (force) {
+			await clearDemoData();
+		}
+
+		await seedUsers();
+		await seedNews();
+		await seedSetupContent();
+		await seedMailTasks();
+		await seedFoodTasks();
+		await seedThingTasks();
+		await seedFollowTasks();
+		await markSeedDone();
+
+		let F = (c) => 'bx_' + c;
+		if (!await dbUtil.isExistCollection(F(DEMO_MARKER))) {
+			await dbUtil.createCollection(F(DEMO_MARKER));
+		}
+
+		let summary = {
+			seeded: true,
+			users: await UserModel.count({ USER_MINI_OPENID: ['in', DEMO_OPENIDS] }),
+			news: await NewsModel.count({}),
+			mail: await MailModel.count({ MAIL_USER_ID: ['in', DEMO_OPENIDS] }),
+			food: await FoodModel.count({ FOOD_USER_ID: ['in', DEMO_OPENIDS] }),
+			thing: await ThingModel.count({ THING_USER_ID: ['in', DEMO_OPENIDS] }),
+			follow: await FollowModel.count({ FOLLOW_USER_ID: ['in', DEMO_OPENIDS] }),
+		};
+
+		console.log('### seedDemoData done.', summary);
+		return summary;
+	} catch (err) {
+		console.error('### seedDemoData failed:', err);
+		throw err;
+	}
 }
 
 module.exports = {
 	seedDemoData,
+	isSeedComplete,
 };

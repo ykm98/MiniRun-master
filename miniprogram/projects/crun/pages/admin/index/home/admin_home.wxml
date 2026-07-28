@@ -94,7 +94,8 @@
  
 
 	<!-- BOTTOM END -->
-	<button bindtap="bindExitTap" class="btn-admin margin-top">退出登录</button>
+	<button bindtap="bindSeedDemoTap" class="btn-admin margin-top-s">导入演示数据</button>
+	<button bindtap="bindExitTap" class="btn-admin margin-top-s">退出登录</button>
 
 	<view class="foot-bottom">
 		<cmpt-foot />

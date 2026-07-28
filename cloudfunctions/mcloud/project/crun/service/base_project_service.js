@@ -34,7 +34,11 @@ class BaseProjectService extends BaseService {
 
 
 		if (await dbUtil.isExistCollection(F(INSTALL_CL))) {
-			await seedDemoData();
+			try {
+				await seedDemoData();
+			} catch (err) {
+				console.error('seedDemoData auto failed:', err);
+			}
 			return;
 		}
 
@@ -85,7 +89,11 @@ class BaseProjectService extends BaseService {
 			await dbUtil.createCollection(F(INSTALL_CL));
 		}
 
-		await seedDemoData();
+		try {
+			await seedDemoData();
+		} catch (err) {
+			console.error('seedDemoData auto failed:', err);
+		}
 	}
 
 }

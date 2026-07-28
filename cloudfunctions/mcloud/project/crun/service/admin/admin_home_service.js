@@ -41,6 +41,12 @@ class AdminHomeService extends BaseProjectAdminService {
 		]
 	}
 
+	/** 导入演示数据 */
+	async seedDemoData(force = false) {
+		const { seedDemoData } = require('../demo_seed_service.js');
+		return await seedDemoData({ force });
+	}
+
 	// 用户数据清理  
 	async clearUserData(userId) {
 

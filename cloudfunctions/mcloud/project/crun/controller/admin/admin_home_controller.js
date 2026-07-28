@@ -26,6 +26,20 @@ class AdminHomeController extends BaseProjectAdminController {
 		return await service.adminHome();
 	}
 
+	// 导入演示数据
+	async seedDemoData() {
+		await this.isAdmin();
+
+		let rules = {
+			force: 'bool|default=false',
+		};
+
+		let input = this.validateData(rules);
+
+		let service = new AdminHomeService();
+		return await service.seedDemoData(input.force);
+	}
+
 	 
 	// 清除首页推荐
 	async clearVouchData() {

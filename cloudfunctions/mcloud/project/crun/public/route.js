@@ -23,6 +23,7 @@ module.exports = {
 	'fav/my_list': 'fav_controller@getMyFavList',
 
 	'admin/home': 'admin/admin_home_controller@adminHome',
+	'admin/seed_demo': 'admin/admin_home_controller@seedDemoData',
 	'admin/clear_vouch': 'admin/admin_home_controller@clearVouchData',
 
 	'admin/login': 'admin/admin_mgr_controller@adminLogin',
