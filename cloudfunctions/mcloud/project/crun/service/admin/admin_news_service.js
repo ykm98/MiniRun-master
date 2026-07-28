@@ -4,9 +4,9 @@
  * Date: 2021-07-11 07:48:00 
  */
 
-const BaseProjectAdminService = require('./base_project_admin_service.js'); 
+const BaseProjectAdminService = require('./base_project_admin_service.js');
 const dataUtil = require('../../../../framework/utils/data_util.js');
-const util = require('../../../../framework/utils/util.js'); 
+const util = require('../../../../framework/utils/util.js');
 const cloudUtil = require('../../../../framework/cloud/cloud_util.js');
 
 const NewsModel = require('../../model/news_model.js');
@@ -16,18 +16,34 @@ class AdminNewsService extends BaseProjectAdminService {
 
 	/**添加资讯 */
 	async insertNews({
-	 
+		title,
+		desc,
+		cateId,
+		cateName,
+		order,
+		forms,
+		content,
 	}) {
+		let data = {
+			NEWS_TITLE: title,
+			NEWS_DESC: desc || '',
+			NEWS_CATE_ID: String(cateId),
+			NEWS_CATE_NAME: cateName || '',
+			NEWS_ORDER: Number(order) || 9999,
+			NEWS_STATUS: 1,
+			NEWS_CONTENT: content || [],
+			NEWS_PIC: [],
+			NEWS_FORMS: forms || [],
+			NEWS_OBJ: dataUtil.dbForms2Obj(forms || []),
+		};
 
-
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
+		let id = await NewsModel.insert(data);
+		return { id };
 	}
 
 	/**删除资讯数据 */
 	async delNews(id) {
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
-
-
+		await NewsModel.del(id);
 	}
 
 	/**获取资讯信息 */
@@ -48,8 +64,7 @@ class AdminNewsService extends BaseProjectAdminService {
 		id,
 		hasImageForms
 	}) {
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
-
+		await NewsModel.editForms(id, 'NEWS_FORMS', 'NEWS_OBJ', hasImageForms);
 	}
 
 
@@ -61,9 +76,11 @@ class AdminNewsService extends BaseProjectAdminService {
 		id,
 		content // 富文本数组
 	}) {
+		let oldVal = await NewsModel.getOneField(id, 'NEWS_CONTENT');
+		if (oldVal)
+			await cloudUtil.handlerCloudFilesByRichEditor(oldVal, content);
 
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
-
+		await NewsModel.edit(id, { NEWS_CONTENT: content });
 	}
 
 	/**
@@ -71,20 +88,41 @@ class AdminNewsService extends BaseProjectAdminService {
 	 * @returns 返回 urls数组 [url1, url2, url3, ...]
 	 */
 	async updateNewsPic({
-		 
+		id,
+		imgList
 	}) {
+		let oldList = await NewsModel.getOneField(id, 'NEWS_PIC');
+		if (oldList)
+			await cloudUtil.handlerCloudFiles(oldList, imgList);
 
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
-
+		await NewsModel.edit(id, { NEWS_PIC: imgList || [] });
+		return imgList;
 	}
 
 
 	/**更新资讯数据 */
 	async editNews({
-		 
+		id,
+		title,
+		desc,
+		cateId,
+		cateName,
+		order,
+		forms,
+		content,
 	}) {
+		let data = {
+			NEWS_TITLE: title,
+			NEWS_DESC: desc || '',
+			NEWS_CATE_ID: String(cateId),
+			NEWS_CATE_NAME: cateName || '',
+			NEWS_ORDER: Number(order) || 9999,
+			NEWS_FORMS: forms || [],
+			NEWS_OBJ: dataUtil.dbForms2Obj(forms || []),
+		};
+		if (content) data.NEWS_CONTENT = content;
 
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
+		await NewsModel.edit(id, data);
 	}
 
 	/**取得资讯分页列表 */
@@ -144,12 +182,12 @@ class AdminNewsService extends BaseProjectAdminService {
 
 	/**修改资讯状态 */
 	async statusNews(id, status) {
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
+		await NewsModel.edit(id, { NEWS_STATUS: Number(status) });
 	}
 
 	/**置顶与排序设定 */
 	async sortNews(id, sort) {
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
+		await NewsModel.edit(id, { NEWS_ORDER: Number(sort) });
 	}
 }
 

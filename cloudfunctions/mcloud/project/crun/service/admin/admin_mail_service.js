@@ -114,14 +114,16 @@ class AdminMailService extends BaseProjectAdminService {
 	}
 
 	/**导出数据 */
-	async exportMailDataExcel({
-		fields,
-		status,
-		start,
-		end,
-	}) {
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
-
+	async exportMailDataExcel(input) {
+		const { exportTaskExcel } = require('./admin_export_helper.js');
+		return await exportTaskExcel({
+			key: EXPORT_MAIL_DATA_KEY,
+			title: '快递代取',
+			Model: MailModel,
+			prefix: 'MAIL',
+			objKey: 'MAIL_OBJ',
+			...input,
+		});
 	}
 }
 

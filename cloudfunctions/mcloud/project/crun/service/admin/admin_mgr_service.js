@@ -58,7 +58,7 @@ class AdminMgrService extends BaseProjectAdminService {
 	}
 
 	async clearLog() {
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
+		await LogModel.clear();
 	}
 
 	/** 取得日志分页列表 */
@@ -154,20 +154,58 @@ class AdminMgrService extends BaseProjectAdminService {
 
 	/** 删除管理员 */
 	async delMgr(id, myAdminId) {
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
+		if (String(id) === String(myAdminId))
+			this.AppError('不能删除自己');
+
+		let mgr = await AdminModel.getOne(id, 'ADMIN_TYPE,ADMIN_NAME');
+		if (!mgr) this.AppError('管理员不存在');
+
+		if (mgr.ADMIN_TYPE == 1) {
+			let cnt = await AdminModel.count({ ADMIN_TYPE: 1, ADMIN_STATUS: 1 });
+			if (cnt <= 1) this.AppError('至少保留一个超级管理员');
+		}
+
+		await AdminModel.del(id);
 	}
 
 	/** 添加新的管理员 */
 	async insertMgr({
-
+		name,
+		desc,
+		phone,
+		password,
+		type = 0,
 	}) {
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
+		let cnt = await AdminModel.count({ ADMIN_NAME: name });
+		if (cnt > 0) this.AppError('该账号已存在');
 
+		let data = {
+			ADMIN_NAME: name,
+			ADMIN_DESC: desc,
+			ADMIN_PHONE: phone || '',
+			ADMIN_PASSWORD: md5Lib.md5(password),
+			ADMIN_TYPE: Number(type) || 0,
+			ADMIN_STATUS: 1,
+		};
+		await AdminModel.insert(data);
 	}
 
 	/** 修改状态 */
 	async statusMgr(id, status, myAdminId) {
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
+		status = Number(status);
+
+		if (String(id) === String(myAdminId) && status == 0)
+			this.AppError('不能停用自己');
+
+		let mgr = await AdminModel.getOne(id, 'ADMIN_TYPE');
+		if (!mgr) this.AppError('管理员不存在');
+
+		if (mgr.ADMIN_TYPE == 1 && status == 0) {
+			let cnt = await AdminModel.count({ ADMIN_TYPE: 1, ADMIN_STATUS: 1 });
+			if (cnt <= 1) this.AppError('至少保留一个超级管理员');
+		}
+
+		await AdminModel.edit(id, { ADMIN_STATUS: status });
 	}
 
 
@@ -186,16 +224,40 @@ class AdminMgrService extends BaseProjectAdminService {
 
 	/** 修改管理员 */
 	async editMgr(id, {
-
+		name,
+		desc,
+		phone,
+		password,
+		type,
 	}) {
+		let mgr = await AdminModel.getOne(id);
+		if (!mgr) this.AppError('管理员不存在');
 
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
+		let exists = await AdminModel.getOne({ ADMIN_NAME: name }, '_id');
+		if (exists && exists._id != id) this.AppError('该账号已存在');
+
+		let data = {
+			ADMIN_NAME: name,
+			ADMIN_DESC: desc,
+			ADMIN_PHONE: phone || '',
+		};
+		if (util.isDefined(type)) data.ADMIN_TYPE = Number(type);
+		if (password) data.ADMIN_PASSWORD = md5Lib.md5(password);
+
+		await AdminModel.edit(id, data);
 	}
 
 	/** 修改自身密码 */
-	async pwdtMgr() {
+	async pwdtMgr(adminId, oldPassword, password) {
+		let admin = await AdminModel.getOne({
+			_id: adminId,
+			ADMIN_PASSWORD: md5Lib.md5(oldPassword)
+		}, '_id');
+		if (!admin) this.AppError('旧密码错误');
 
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
+		await AdminModel.edit(adminId, {
+			ADMIN_PASSWORD: md5Lib.md5(password)
+		});
 	}
 }
 

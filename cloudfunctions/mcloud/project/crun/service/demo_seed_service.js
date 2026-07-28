@@ -309,17 +309,6 @@ async function seedMailTasks() {
 	}
 }
 
-async function insertTaskBatch(Model, prefix, tasks, buildRecord) {
-	let openidField = prefix + '_USER_ID';
-	if (await Model.count({ [openidField]: ['in', DEMO_OPENIDS] }) >= tasks.length) return;
-
-	let batch = [];
-	for (let task of tasks) {
-		batch.push(buildRecord(task));
-	}
-	if (batch.length) await Model.insertBatch(batch);
-}
-
 async function seedFoodTasks() {
 	if (await FoodModel.count({ FOOD_USER_ID: ['in', DEMO_OPENIDS] }) >= 3) return;
 

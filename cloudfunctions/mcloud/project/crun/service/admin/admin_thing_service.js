@@ -114,14 +114,16 @@ class AdminThingService extends BaseProjectAdminService {
 	}
 
 	/**导出数据 */
-	async exportThingDataExcel({
-		fields,
-		status,
-		start,
-		end,
-	}) {
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
-
+	async exportThingDataExcel(input) {
+		const { exportTaskExcel } = require('./admin_export_helper.js');
+		return await exportTaskExcel({
+			key: EXPORT_THING_DATA_KEY,
+			title: '急事代办',
+			Model: ThingModel,
+			prefix: 'THING',
+			objKey: 'THING_OBJ',
+			...input,
+		});
 	}
 }
 

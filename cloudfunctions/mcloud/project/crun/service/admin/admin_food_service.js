@@ -114,14 +114,16 @@ class AdminFoodService extends BaseProjectAdminService {
 	}
 
 	/**导出数据 */
-	async exportFoodDataExcel({
-		fields,
-		status,
-		start,
-		end,
-	}) {
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
-
+	async exportFoodDataExcel(input) {
+		const { exportTaskExcel } = require('./admin_export_helper.js');
+		return await exportTaskExcel({
+			key: EXPORT_FOOD_DATA_KEY,
+			title: '代买服务',
+			Model: FoodModel,
+			prefix: 'FOOD',
+			objKey: 'FOOD_OBJ',
+			...input,
+		});
 	}
 }
 

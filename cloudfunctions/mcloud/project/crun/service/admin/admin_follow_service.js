@@ -114,14 +114,16 @@ class AdminFollowService extends BaseProjectAdminService {
 	}
 
 	/**导出数据 */
-	async exportFollowDataExcel({
-		fields,
-		status,
-		start,
-		end,
-	}) {
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
-
+	async exportFollowDataExcel(input) {
+		const { exportTaskExcel } = require('./admin_export_helper.js');
+		return await exportTaskExcel({
+			key: EXPORT_FOLLOW_DATA_KEY,
+			title: '陪替服务',
+			Model: FollowModel,
+			prefix: 'FOLLOW',
+			objKey: 'FOLLOW_OBJ',
+			...input,
+		});
 	}
 }
 

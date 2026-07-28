@@ -87,14 +87,15 @@ class AdminUserService extends BaseProjectAdminService {
 	}
 
 	async statusUser(id, status, reason) {
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
+		await UserModel.edit({ USER_MINI_OPENID: id }, {
+			USER_STATUS: Number(status),
+			USER_CHECK_REASON: reason || '',
+		});
 	}
 
 	/**删除用户 */
 	async delUser(id) {
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
- 
-
+		await UserModel.del({ USER_MINI_OPENID: id });
 	}
 
 	// #####################导出用户数据
@@ -111,9 +112,8 @@ class AdminUserService extends BaseProjectAdminService {
 
 	/**导出用户数据 */
 	async exportUserDataExcel(condition, fields) {
-
-		this.AppError('[跑腿]该功能暂不开放，如有需要请加作者微信：cclinux0730');
-
+		const { exportUserExcel } = require('./admin_export_helper.js');
+		return await exportUserExcel(EXPORT_USER_DATA_KEY, condition, fields, UserModel);
 	}
 
 }
