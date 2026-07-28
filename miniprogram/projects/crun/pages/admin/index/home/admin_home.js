@@ -43,18 +43,6 @@ Page({
 				stat: res
 			});
 
-			// 数据不足时自动补导演示数据
-			if (res && res[2] && res[2].cnt < 4) {
-				try {
-					await cloudHelper.callCloudSumbit('admin/seed_demo', { force: true }, { title: '导入演示数据...' });
-					res = await cloudHelper.callCloudData('admin/home', {}, { title: 'bar' });
-					this.setData({ stat: res });
-					pageHelper.showSuccToast('演示数据已导入');
-				} catch (seedErr) {
-					console.log('auto seed failed:', seedErr);
-				}
-			}
-
 		} catch (err) {
 			console.log(err);
 		}

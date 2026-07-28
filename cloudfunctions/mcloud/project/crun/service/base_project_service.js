@@ -8,7 +8,6 @@ const util = require('../../../framework/utils/util.js');
 const AdminModel = require('../../../framework/platform/model/admin_model.js');
 const NewsModel = require('../model/news_model.js');
 const BaseService = require('../../../framework/platform/service/base_service.js');
-const { seedDemoData } = require('./demo_seed_service.js');
 
 class BaseProjectService extends BaseService {
 	getProjectId() {
@@ -34,11 +33,6 @@ class BaseProjectService extends BaseService {
 
 
 		if (await dbUtil.isExistCollection(F(INSTALL_CL))) {
-			try {
-				await seedDemoData();
-			} catch (err) {
-				console.error('seedDemoData auto failed:', err);
-			}
 			return;
 		}
 
@@ -87,12 +81,6 @@ class BaseProjectService extends BaseService {
 
 		if (!await dbUtil.isExistCollection(F(INSTALL_CL))) {
 			await dbUtil.createCollection(F(INSTALL_CL));
-		}
-
-		try {
-			await seedDemoData();
-		} catch (err) {
-			console.error('seedDemoData auto failed:', err);
 		}
 	}
 

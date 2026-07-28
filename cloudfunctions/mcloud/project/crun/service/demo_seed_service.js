@@ -16,7 +16,7 @@ const FollowModel = require('../model/follow_model.js');
 
 const DEMO_MARKER = 'setup_crun_demo';
 const SEED_KEY = 'DEMO_SEED_VERSION';
-const SEED_VERSION = 3;
+const SEED_VERSION = 4;
 const CONST_PIC = '/images/cover.gif';
 
 const DEMO_USERS = [
@@ -309,6 +309,17 @@ async function seedMailTasks() {
 	}
 }
 
+async function insertTaskBatch(Model, prefix, tasks, buildRecord) {
+	let openidField = prefix + '_USER_ID';
+	if (await Model.count({ [openidField]: ['in', DEMO_OPENIDS] }) >= tasks.length) return;
+
+	let batch = [];
+	for (let task of tasks) {
+		batch.push(buildRecord(task));
+	}
+	if (batch.length) await Model.insertBatch(batch);
+}
+
 async function seedFoodTasks() {
 	if (await FoodModel.count({ FOOD_USER_ID: ['in', DEMO_OPENIDS] }) >= 3) return;
 
@@ -549,26 +560,13 @@ async function seedFollowTasks() {
 	}
 }
 
-async function ensureCollections() {
-	let F = (c) => 'bx_' + c;
-	const COLLECTIONS = ['setup', 'news', 'mail', 'follow', 'thing', 'food', 'fav', 'user'];
-	for (let name of COLLECTIONS) {
-		if (!await dbUtil.isExistCollection(F(name))) {
-			await dbUtil.createCollection(F(name));
-		}
-	}
-}
-
 async function isSeedComplete() {
 	let version = await setupUtil.get(SEED_KEY);
-	if (version !== SEED_VERSION) return false;
+	return version === SEED_VERSION;
+}
 
-	let mailCnt = await MailModel.count({ MAIL_USER_ID: ['in', DEMO_OPENIDS] });
-	let foodCnt = await FoodModel.count({ FOOD_USER_ID: ['in', DEMO_OPENIDS] });
-	let thingCnt = await ThingModel.count({ THING_USER_ID: ['in', DEMO_OPENIDS] });
-	let followCnt = await FollowModel.count({ FOLLOW_USER_ID: ['in', DEMO_OPENIDS] });
-
-	return mailCnt >= 4 && foodCnt >= 3 && thingCnt >= 3 && followCnt >= 3;
+async function ensureCollections() {
+	// 集合由 initSetup 创建，此处跳过重复检测以节省时间
 }
 
 async function clearDemoData() {

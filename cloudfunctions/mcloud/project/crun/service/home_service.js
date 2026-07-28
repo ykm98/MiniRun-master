@@ -19,15 +19,6 @@ class HomeService extends BaseProjectService {
 
 	/**首页列表 */
 	async getHomeList() {
-		try {
-			const { seedDemoData, isSeedComplete } = require('./demo_seed_service.js');
-			if (!await isSeedComplete()) {
-				await seedDemoData({ force: false });
-			}
-		} catch (err) {
-			console.error('getHomeList auto seed failed:', err);
-		}
-
 		let t = this._timestamp;
 
 		let mailCnt = await MailModel.count({ MAIL_STATUS: 0, MAIL_END_TIME: ['>', t] });
