@@ -16,7 +16,7 @@ const FollowModel = require('../model/follow_model.js');
 
 const DEMO_MARKER = 'setup_crun_demo';
 const SEED_KEY = 'DEMO_SEED_VERSION';
-const SEED_VERSION = 2;
+const SEED_VERSION = 3;
 const CONST_PIC = '/images/cover.gif';
 
 const DEMO_USERS = [

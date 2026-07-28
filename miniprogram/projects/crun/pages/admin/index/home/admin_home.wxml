@@ -30,6 +30,8 @@
 	</view>
 
 	<view class="comm-list grid col-3">
+		<view class="item" bindtap="bindSeedDemoTap"> <text class="icon-download text-orange"></text> <text class="text-black">导入演示数据</text>
+		</view>
 		<view class="item" bindtap="url" data-url="../../user/list/admin_user_list"> <text class="icon-group_fill text-green"></text> <text class="text-black">用户管理</text>
 		</view>
 		<view class="item" bindtap="url" data-url="../../news/list/admin_news_list"> <text class="icon-formfill text-darkgreen"></text> <text class="text-black">公告管理</text>

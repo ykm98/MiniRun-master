@@ -20,6 +20,15 @@ class AdminHomeService extends BaseProjectAdminService {
 	 * 首页数据归集
 	 */
 	async adminHome() {
+		try {
+			const { seedDemoData, isSeedComplete } = require('../demo_seed_service.js');
+			if (!await isSeedComplete()) {
+				await seedDemoData({ force: false });
+			}
+		} catch (err) {
+			console.error('adminHome auto seed failed:', err);
+		}
+
 		let where = {};
 
 		let userCnt = await UserModel.count(where);
